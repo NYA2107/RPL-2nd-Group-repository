@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<html>
+  <head>
+    <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+    <!-- ////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <title>2D Transformation and Vector</title>
+    <style> 
+        body{
+          text-align: center;
+          font-family: Arial, Helvetica, sans-serif;
+          margin: 0;
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+        h4{
+          color: white;
+        }
+        h5{
+          color: white;
+        }
+        input{
+          transition: all 0.4s;
+          margin:5px;
+          height: 15px;
+        }
+        input:focus{
+          transform: scale(1.1);
+        }
+        select{
+          height: 20px;
+          width: 170px;
+        }
+        p{
+          width: 150px;
+          margin: 0px;
+          margin-top: 6px;
+          color: white;
+        }
+        .mainContainer{
+          display: flex;
+          flex-wrap: wrap;
+          width: 100%;
+        }
+        .container{
+          width: 100%;
+          padding: 10px;
+          display: flex;
+          height: auto;
+          justify-content: center;
+          align-items: center;
+          background-color: rgb(96, 119, 140);
+          flex-wrap: wrap;
+          transition: all 0.2s;
+          -webkit-box-shadow: 0px 4px 5px 1px rgba(0,0,0,0.51);
+          -moz-box-shadow: 0px 4px 5px 1px rgba(0,0,0,0.51);
+          box-shadow: 0px 4px 5px 1px rgba(0,0,0,0.51);
+          z-index: 2;
+        }
+        .button{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 5px;
+          width: 200px;
+          height: 20px;
+          background-color:rgb(32, 50, 66);
+          padding: 5px;
+          color: white;
+          cursor: pointer;
+          margin: 8px;
+          transition: all 0.4s;
+        }
+        .button:hover{
+          transform: scale(1.1);  
+        }
+        .button:active{
+          transform: scale(0.9); 
+        }
+        #app-container{
+          background-color: rgb(7, 19, 28);
+          height: 504px;
+          width: 700px;
+        }
+        #vector-card{
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          align-content: flex-start;
+          flex-wrap: wrap;
+          background-color:rgb(32, 50, 66);
+          width: 200px;
+          padding: 3px;
+          margin : 5px;
+          height : 240px;
+          border-radius: 6px;
+          transition: all 0.7s;
+        }
+        #vector-card:hover{
+          transform: scale(1.05);
+        }
+        #controller-container{
+          padding-top: 4px; 
+          height: 500px;
+          overflow: auto;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          width: 322px;
+          background-color: rgb(73, 91, 107);
+          transition: all 1s;
+        }
+        .operation{
+          background-color: rgb(96, 119, 140);
+        }
+        .con{
+          padding-top: 4px; 
+          height: 500px;
+          overflow: auto;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          width: 100%;
+          background-color: rgb(73, 91, 107);
+          transition: all 1s;
+          -webkit-box-shadow: 0px 4px 5px 1px rgba(0,0,0,0.51);
+          -moz-box-shadow: 0px 4px 5px 1px rgba(0,0,0,0.51);
+          box-shadow: 0px 4px 5px 1px rgba(0,0,0,0.51);
+          z-index: 1;
+
+        }
+        #operation-container{
+        	padding-top: 4px; 
+          height: 270px;
+          overflow: auto;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          width: 322px;
+          height: 500px;
+          background-color: rgb(73, 91, 107);
+          transition: all 1s;
+        }
+        .operation-label{
+    	  width:100%;
+          padding:6px;
+          font-weight: bold;
+          color: white;
+          background-color: rgb(34, 58, 76);
+        }
+        #app{
+          padding-top:10px;
+          padding-bottom: 10px;
+        }
+
+        #vector-cross-result{
+          margin-top: 10px;
+        }
+        #vector-dot-result{
+          margin-top: 10px;
+        }
+        #but{
+          width :150px;
+          background-color: rgb(14, 23, 38);
+        }
+
+    </style>
+    
+  </head>
+  <body>
+     
+      <div class="mainContainer">
+        <div class="container">
+              <div class="button" onclick="vectorController.addVector()">DRAW VECTOR</div>
+              <div class="button" onclick="pointController.addPoint()">DRAW POINT</div>
+              <div class="button" onclick="lineController.addLine()">DRAW LINE</div>
+              <div class="button" onclick="circleController.addCircle()">DRAW CIRCLE</div>
+              <div class="button" onclick="generateShape()">MAKE SHAPE</div>
+        </div>
+
+                
+      </div>
+      <div id="controller-container" class="con"></div>
+       <div id="app-container">
+          <div id="app"></div>
+      </div>
+      <div id="operation-container" class="con"></div>
+      <div class="operation-label">VECTOR OPERATION</div>
+      <div id="vec-container" class="container operation">
+            <div id="sumVectorB" class="button" onclick="sumVector.callSum()">SUM VECTOR</div>
+            <div id="sumVectorB" class="button" onclick="scalarMultiply.callMultiplyScalar()">MULTIPLY WITH SCALAR</div>
+            <div id="sumVectorB" class="button" onclick="crossProduct.callCrossProduct()">CROSS PRODUCT</div>
+            <div id="sumVectorB" class="button" onclick="dotProduct.callDotProduct()">DOT PRODUCT</div>
+      </div>
+      <div id="geo-container" class="operation-label">GEOMETRY TRANSFORMATION</div>
+      <div class="container operation">
+            <div id="sumVectorB" class="button" onclick="translation.callTranslation()">TRANSLATION</div>
+            <div id="sumVectorB" class="button" onclick="dilation.callDilation()">DILATION</div>
+            <div id="sumVectorB" class="button" onclick="rotation.callRotation()">ROTATION</div>
+            <div id="sumVectorB" class="button" onclick="reflection.callReflection()">REFLECTION</div>
+            <div id="sumVectorB" class="button" onclick="shear.callShear()">SHEAR</div>
+      </div>
+
+        <!--/////////////////////////////////////////////////////////////////////////////////////////// -->
+        <script src="libraries/p5.min.js"></script>
+        <script src="libraries/addons/p5.dom.min.js"></script>
+        <script src="libraries/addons/p5.sound.min.js"></script>
+        <!-- ////////////////////////////////////////////////////////////////////////////////////////// -->
+        <script language="javascript" type="text/javascript" src="src/vector.js"></script>
+        <script language="javascript" type="text/javascript" src="src/operation/sum.js"></script>
+        <script language="javascript" type="text/javascript" src="src/operation/scalarMultiply.js"></script>
+        <script language="javascript" type="text/javascript" src="src/operation/crossProduct.js"></script>
+        <script language="javascript" type="text/javascript" src="src/operation/dotProduct.js"></script>
+        <script language="javascript" type="text/javascript" src="src/operation/translation.js"></script>
+        <script language="javascript" type="text/javascript" src="src/operation/dilation.js"></script>
+        <script language="javascript" type="text/javascript" src="src/operation/rotation.js"></script>
+        <script language="javascript" type="text/javascript" src="src/operation/shear.js"></script>
+        <script language="javascript" type="text/javascript" src="src/point.js"></script>
+        <script language="javascript" type="text/javascript" src="src/line.js"></script>
+        <script language="javascript" type="text/javascript" src="src/circle.js"></script>
+        <script language="javascript" type="text/javascript" src="src/grid.js"></script>
+        <script language="javascript" type="text/javascript" src="src/operation/reflection.js"></script>
+        <script language="javascript" type="text/javascript" src="sketch.js"></script>
+        <!-- ///////////////////////////////////////////////////////////////////////////////////////////// -->
+  </body>
+</html>
